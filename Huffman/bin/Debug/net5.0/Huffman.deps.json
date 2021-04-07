@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Huffman/1.0.0": {
+        "dependencies": {
+          "Map": "1.0.0"
+        },
+        "runtime": {
+          "Huffman.dll": {}
+        }
+      },
+      "Map/1.0.0": {
+        "runtime": {
+          "Map.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Huffman/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Map/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
