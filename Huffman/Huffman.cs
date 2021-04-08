@@ -54,7 +54,7 @@ namespace Huffman
                 
             }
 
-            AddSymbolInCode(maxBinaryHeap);
+            SetCodeOnSymbol(maxBinaryHeap);
             
             string encodedText = "";
             
@@ -122,48 +122,7 @@ namespace Huffman
             }
         }
 
-        private static void FindTwoMin(out string min1, out string min2 )
-        {
-            Queue<string> keys = tableFrequency.GetKeys();
-
-            Queue<int> frequencies = tableFrequency.GetValues();
-
-            min1 = keys.Pop();
-
-            if (keys.IsEmpty())
-            {
-                throw new Exception("There are fewer than two keys in the list");
-            }
-            
-            min2 = keys.Pop();
-
-            if (tableFrequency.Find(min1) > tableFrequency.Find(min2))
-            {
-                var t = min1;
-
-                min1 = min2;
-
-                min2 = t;
-            }
-
-            while (!keys.IsEmpty())
-            {
-                var t = keys.Pop();
-                
-                if (tableFrequency.Find(t) < tableFrequency.Find(min1))
-                {
-                    min2 = min1;
-
-                    min1 = t;
-                }
-                else if (tableFrequency.Find(t) >= tableFrequency.Find(min1) && tableFrequency.Find(t) < tableFrequency.Find(min2))
-                {
-                    min2 = t;
-                }
-            }
-        }
-
-        private static void AddSymbolInCode(MaxBinaryHeap maxBinaryHeap)
+        private static void SetCodeOnSymbol(MaxBinaryHeap maxBinaryHeap)
         {
             while (true)
             {
