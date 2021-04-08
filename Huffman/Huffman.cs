@@ -19,9 +19,9 @@ namespace Huffman
         {
             CreateTableFrequencyAndCode(text);
 
-            MinBinaryHeap minBinaryHeap = new MinBinaryHeap(tableFrequency);
+            minBinaryHeap = new MinBinaryHeap(tableFrequency);
 
-            MaxBinaryHeap maxBinaryHeap = new MaxBinaryHeap();
+            maxBinaryHeap = new MaxBinaryHeap();
             
             Queue<string> keys = tableFrequency.GetKeys();
 
@@ -54,7 +54,7 @@ namespace Huffman
                 
             }
 
-            SetCodeOnSymbol(maxBinaryHeap);
+            SetCodeOnSymbol();
             
             string encodedText = "";
             
@@ -122,7 +122,7 @@ namespace Huffman
             }
         }
 
-        private static void SetCodeOnSymbol(MaxBinaryHeap maxBinaryHeap)
+        private static void SetCodeOnSymbol()
         {
             while (true)
             {
