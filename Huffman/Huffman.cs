@@ -10,40 +10,63 @@ namespace Huffman
         private static Map<string, int> tableFrequency;
 
         private static Map<string, string> tableCode;
+        
+        private static MinBinaryHeap minBinaryHeap;
+
+        private static MaxBinaryHeap maxBinaryHeap;
 
         public static string Encode(string text)
         {
             CreateTableFrequencyAndCode(text);
 
+            MinBinaryHeap minBinaryHeap = new MinBinaryHeap(tableFrequency);
+
+            MaxBinaryHeap maxBinaryHeap = new MaxBinaryHeap();
+            
             Queue<string> keys = tableFrequency.GetKeys();
 
-            while (!keys.IsEmpty())
+            while (true)
             {
-                string min1 = null;
+                Symbol min1 = null;
                 
-                string min2 = null;
+                Symbol min2 = null;
 
                 try
                 {
-                    FindTwoMin(out min1, out min2);
+                    //FindTwoMin(out min1, out min2);
+
+                    min1 = minBinaryHeap.RemoveMin();
+
+                    min2 = minBinaryHeap.RemoveMin();
                 }
                 catch (Exception e)
                 {
+                    
                     break;
                 }
 
-                AddSymbolInCode(min1, "0");
-                
+                /*AddSymbolInCode(min1, "0");
+
                 AddSymbolInCode(min2, "1");
 
                 tableFrequency.Insert(min1 + min2, tableFrequency.Find(min1) + tableFrequency.Find(min2));
 
                 tableFrequency.Remove(min1);
 
-                tableFrequency.Remove(min2);
+                tableFrequency.Remove(min2);*/
                 
-                keys = tableFrequency.GetKeys();
+                min1.Code = "0";
+                maxBinaryHeap.Insert(min1);
+
+                min2.Code = "1";
+                maxBinaryHeap.Insert(min2);
+                
+                minBinaryHeap.Insert(new Symbol() { Character = min1.Character + min2.Character, Code = "", Frequency = min1.Frequency + min2.Frequency });
+                
+                //maxBinaryHeap.Insert(new Symbol() {Character = min1.Character + min2.Character, Code = "", Frequency = min1.Frequency + min2.Frequency});
             }
+
+            AddSymbolInCode(maxBinaryHeap);
             
             string encodedText = "";
             
@@ -51,7 +74,7 @@ namespace Huffman
             {
                 encodedText += tableCode.Find(text[i].ToString());
             }
-            
+
             return encodedText;
         }
 
@@ -152,12 +175,30 @@ namespace Huffman
             }
         }
 
-        private static void AddSymbolInCode(string s, string code)
+        private static void AddSymbolInCode(MaxBinaryHeap maxBinaryHeap)
         {
-            for (int i = 0; i < s.Length; i++)
+            while (true)
             {
-                tableCode.FindNode(s[i].ToString()).data = code + tableCode.FindNode(s[i].ToString()).data;
+                Symbol temp = new Symbol();
+
+                try
+                {
+                    temp = maxBinaryHeap.RemoveMax();
+                }
+                catch (Exception e)
+                {
+                    break;
+                }
+
+                for (int i = 0; i < temp.Character.Length; i++)
+                {
+                    tableCode.FindNode(temp.Character[i].ToString()).data += temp.Code;
+                    
+                }
+
+                
             }
+
         }
 
         public static double CompressionRatio(string text, string encodedText)
@@ -169,5 +210,7 @@ namespace Huffman
         {
             tableCode.Print();
         }
+        
+        
     }
 }

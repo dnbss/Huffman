@@ -13,7 +13,7 @@ namespace HuffmanTest
 
             string actual = Huffman.Huffman.Encode(text);
 
-            string expected = "111101101110011010010000101100010011111101100101";
+            string expected = "111101101110011010010000101100010011111101010110";
             
             Assert.AreEqual(expected, actual);
         }
