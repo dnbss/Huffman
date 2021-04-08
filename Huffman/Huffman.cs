@@ -33,7 +33,6 @@ namespace Huffman
 
                 try
                 {
-                    //FindTwoMin(out min1, out min2);
 
                     min1 = minBinaryHeap.RemoveMin();
 
@@ -45,16 +44,6 @@ namespace Huffman
                     break;
                 }
 
-                /*AddSymbolInCode(min1, "0");
-
-                AddSymbolInCode(min2, "1");
-
-                tableFrequency.Insert(min1 + min2, tableFrequency.Find(min1) + tableFrequency.Find(min2));
-
-                tableFrequency.Remove(min1);
-
-                tableFrequency.Remove(min2);*/
-                
                 min1.Code = "0";
                 maxBinaryHeap.Insert(min1);
 
@@ -63,7 +52,6 @@ namespace Huffman
                 
                 minBinaryHeap.Insert(new Symbol() { Character = min1.Character + min2.Character, Code = "", Frequency = min1.Frequency + min2.Frequency });
                 
-                //maxBinaryHeap.Insert(new Symbol() {Character = min1.Character + min2.Character, Code = "", Frequency = min1.Frequency + min2.Frequency});
             }
 
             AddSymbolInCode(maxBinaryHeap);
