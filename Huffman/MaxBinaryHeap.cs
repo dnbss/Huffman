@@ -7,17 +7,17 @@ namespace Huffman
 {
     public class MaxBinaryHeap
     {
-        private List<Symbol> list;
+        private ListArray<Symbol> list;
         public int heapSize => list.Count;
 
         public MaxBinaryHeap()
         {
-            list = new List<Symbol>();
+            list = new ListArray<Symbol>();
         }
 
         public MaxBinaryHeap(Map<string, int> tableFrequency)
         {
-            list = new List<Symbol>();
+            list = new ListArray<Symbol>();
             
             Map.Queue<string> keys = tableFrequency.GetKeys();
 
